@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find4You - Recommendations</title>
+  <link rel="stylesheet" href="result.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background"></div>
+
+  <!-- Success Banner -->
+  <div id="success-banner" class="success-banner">
+    ✅ We've found some recommendations for you!
+  </div>
+
+  <div class="recommendations-container">
+    <h1 class="title">🍿 Your Recommendations</h1>
+    <div class="recommendation-list"></div>
+    <a href="survey.html" class="cta-button">🔙 Back to Survey</a>
+  </div>
+
+  <script src="results.js"></script>
+
+  <!-- Small Script for Success Banner -->
+  <script>
+    window.addEventListener('load', function() {
+      const banner = document.getElementById('success-banner');
+      banner.classList.add('show');
+
+      setTimeout(() => {
+        banner.classList.remove('show');
+      }, 3000); // Hide after 3 seconds
+    });
+  </script>
+</body>
+</html>

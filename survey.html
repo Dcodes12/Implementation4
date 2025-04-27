@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find4You - Describe Your Taste</title>
+  <link rel="stylesheet" href="survey.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background"></div>
+
+  <div class="container">
+    <h1>🎥 Find Your Next Favorite</h1>
+
+    <form id="search-form">
+      <label for="query">What are you in the mood for?</label>
+      <input type="text" id="query" name="query" placeholder="e.g., I love sci-fi thrillers">
+      <button type="submit">Search</button>
+    </form>
+
+    <!-- Loading Section (hidden by default) -->
+    <div id="loading" style="display:none; margin-top:20px; color:white;">
+      <div class="spinner"></div>
+      <p>Finding recommendations...</p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("search-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Show loading spinner and message
+      document.getElementById("loading").style.display = "block";
+
+      let userQuery = document.getElementById("query").value;
+
+      fetch("http://127.0.0.1:5000/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: userQuery })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        localStorage.setItem("recommendations", JSON.stringify(data.recommendations));
+        window.location.href = "recommendations.html"; // Redirect to display results
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again.");
+        document.getElementById("loading").style.display = "none"; // Hide loading if error
+      });
+    });
+  </script>
+</body>
+</html>
